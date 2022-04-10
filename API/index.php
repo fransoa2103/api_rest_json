@@ -9,21 +9,31 @@ $pw     = '';
 try
 {
     $pdo = new PDO('mysql:host='.$host.';dbname='.$db.';charset=utf8', $admin, $pw);
-    $flys["success"] = true;
-    $flys["message"] = "connection done";
+    $flights["success"] = true;
+    $flights["message"] = "connection done";
 }
 catch(Exception $e)
 {
-    $flys["success"] = false;
-    $flys["message"] = "connection fail";
+    $flights["success"] = false;
+    $flights["message"] = "connection fail";
 }
 
-$request = $pdo->prepare("SELECT * FROM `flys`");
-$request->execute();
+// var_dump($_POST); die;
+if(!empty($_POST["depart"])){
+    $request = $pdo->prepare("SELECT * FROM flights WHERE depart = ?");
+    $request->execute([$_POST["depart"]]);    
+    $flights["success"] = true;
+    $flights["message"] = "flights List from ".$_POST["depart"];
+}
+else
+{
+    $request = $pdo->prepare("SELECT * FROM `flights`");
+    $request->execute();
+    $flights["success"] = true;
+    $flights["message"] = "flights List";
+}
 
-$flys["success"] = true;
-$flys["message"] = "Liste des vols";
-$flys["results"]["flys"] = $request->fetchAll();
+$flights["results"]["flights"] = $request->fetchAll();
 // var_dump($result);
 
-echo json_encode($flys);
+echo json_encode($flights);
