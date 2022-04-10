@@ -18,11 +18,12 @@ catch(Exception $e)
     $flights["message"] = "connection fail";
 }
 
-if(!empty($_POST["depart"])){
-    $request = $pdo->prepare("SELECT * FROM flights WHERE depart = ?");
-    $request->execute([$_POST["depart"]]);    
+if(!empty($_GET["arrival"])){
+    $request = $pdo->prepare("SELECT * FROM flights WHERE arrival = ? ");
+    $request->execute([$_GET["arrival"]]);    
+    $request->execute();    
     $flights["success"] = true;
-    $flights["message"] = "flights List from ".$_POST["depart"];
+    $flights["message"] = "flights List from ".$_GET["arrival"];
 }
 else
 {
@@ -32,6 +33,8 @@ else
     $flights["message"] = "flights List";
 }
 
-$flights["results"]["flights"] = $request->fetchAll();
+$result = $request->fetchAll();
+$flights["results"]["find_qty"] = count($result);
+$flights["results"]["flights"] = $result;
 
 echo json_encode($flights);
