@@ -18,7 +18,6 @@ catch(Exception $e)
     $flights["message"] = "connection fail";
 }
 
-// var_dump($_POST); die;
 if(!empty($_POST["depart"])){
     $request = $pdo->prepare("SELECT * FROM flights WHERE depart = ?");
     $request->execute([$_POST["depart"]]);    
@@ -34,6 +33,5 @@ else
 }
 
 $flights["results"]["flights"] = $request->fetchAll();
-// var_dump($result);
 
 echo json_encode($flights);
