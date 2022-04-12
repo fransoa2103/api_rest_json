@@ -1,5 +1,5 @@
 <?php
-include 'header.php';
+include 'db_connect.php';
 
 if(!empty($_GET["arrival"])){
     $request = $pdo->prepare("SELECT * FROM flights WHERE arrival = ? ");
