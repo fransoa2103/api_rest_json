@@ -13,7 +13,7 @@ else
     $request = $pdo->prepare("SELECT * FROM `flights`");
     $request->execute();
     $flights["success"] = true;
-    $flights["message"] = "flights List";
+    $flights["message"] = "All flights List";
 }
 
 $result = $request->fetchAll();
