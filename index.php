@@ -3,7 +3,7 @@
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
-require 'API\Flight.php';
+require 'Flight.php';
     
 if (isset($_GET['arrival']) != "" && (isset($_GET['depart']) != ""))
     {
