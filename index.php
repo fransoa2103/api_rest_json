@@ -17,6 +17,6 @@ if (isset($_GET['arrival']) != "" && (isset($_GET['depart']) != ""))
     {
         flightListByDepart();
     }
-    else {
-        flightsAll();
-    };
+
+flightsAll();
+    

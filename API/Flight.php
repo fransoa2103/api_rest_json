@@ -1,7 +1,7 @@
 <?php
 
 function connectDb(){
-    require_once '.env';
+    require_once '.\.env';
     try
     {
         // !isset($pdo)? $pdo = new PDO($_ENV['LOC_HOST'].$_ENV['LOC_NAME'].$_ENV['LOC_CHAR'],$_ENV['LOC_USER'],$_ENV['LOC_PW']): null ;
