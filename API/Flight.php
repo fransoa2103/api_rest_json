@@ -1,11 +1,12 @@
 <?php
 
 function connectDb(){
-    require_once '..\.env';
+    require_once '.env';
     try
     {
-        !isset($pdo)? $pdo = new PDO($_ENV['LOC_HOST'].$_ENV['LOC_NAME'].$_ENV['LOC_CHAR'],$_ENV['LOC_USER'],$_ENV['LOC_PW']): null ;
-        // $pdo = new PDO($_ENV['DB_HOST'].$_ENV['DB_NAME'].$_ENV['DB_CHAR'],$_ENV['DB_USER'],$_ENV['DB_PW']);
+        // !isset($pdo)? $pdo = new PDO($_ENV['LOC_HOST'].$_ENV['LOC_NAME'].$_ENV['LOC_CHAR'],$_ENV['LOC_USER'],$_ENV['LOC_PW']): null ;
+        !isset($pdo)? $pdo = new PDO($_ENV['DB_HOST'].$_ENV['DB_NAME'].$_ENV['DB_CHAR'],$_ENV['DB_USER'],$_ENV['DB_PW']): null ;
+        
         $flights["success"] = true;
         $flights["message"] = "connection done";
         return($pdo);
