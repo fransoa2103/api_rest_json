@@ -1,9 +1,9 @@
 <?php
-$flightList = json_decode(file_get_contents("https://fcb-test-api.herokuapp.com/?arrival=", true));
+// $flightList = json_decode(file_get_contents("https://fcb-test-api.herokuapp.com/?arrival=", true));
 
 ob_start(); ?>
 
-<form action="..\controller\flightList.php" method="GET" class="form-group fs-3">
+<form action="API_access\controller\flightList.php" method="GET" class="form-group fs-3">
     
     <div class="input-group mb-3">
         <label class="input-group-text me-1" for="depart">Depart</label>

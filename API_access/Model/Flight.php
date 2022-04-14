@@ -1,5 +1,5 @@
 <?php
-function connect_DB(){
+function connect_API(){
 
     $flightList = json_decode(file_get_contents("https://fcb-test-api.herokuapp.com/?arrival=".$_GET['arrival']), true);
     $flights = $flightList['results']['flights'];
