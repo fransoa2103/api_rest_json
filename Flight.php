@@ -21,40 +21,45 @@ function connectDb(){
     }
 }
 
-function flightListByDepartArrival(){
+function flightListByDepartArrival($depart, $arrival){
     $pdo = connectDb();
     $request = $pdo->prepare("SELECT * FROM flights WHERE depart = ? AND arrival = ? ");
-    $request->execute([$_GET["depart"],$_GET["arrival"]]);    
+
+    $request->execute([$depart,$arrival]);    
+    // $request->execute([$_GET["depart"],$_GET["arrival"]]);    
+
     $flights["success"] = true;
     $flights["message"] = "flights List from ".$_GET["depart"]." to ".$_GET["arrival"];
     
-    $result = $request->fetchAll(PDO::FETCH_ASSOC);
+    $result = $request->fetchAll(PDO::FETCH_OBJ);
     $flights["results"]["find_qty"] = count($result);
     $flights["results"]["flights"] = $result;
     echo json_encode($flights);
 }
 
-function flightListByArrival(){
+function flightListByArrival($arrival){
     $pdo = connectDb();
     $request = $pdo->prepare("SELECT * FROM flights WHERE arrival = ? ");
-    $request->execute([$_GET["arrival"]]);    
+    // $request->execute([$_GET["arrival"]]);    
+    $request->execute([$arrival]);    
     $flights["success"] = true;
     $flights["message"] = "flights List to ".$_GET["arrival"];
     
-    $result = $request->fetchAll(PDO::FETCH_ASSOC);
+    $result = $request->fetchAll(PDO::FETCH_OBJ);
     $flights["results"]["find_qty"] = count($result);
     $flights["results"]["flights"] = $result;
     echo json_encode($flights);
 }
 
-function flightListByDepart(){
+function flightListByDepart($depart){
     $pdo = connectDb();
     $request = $pdo->prepare("SELECT * FROM flights WHERE depart = ? ");
-    $request->execute([$_GET["depart"]]);    
+    // $request->execute([$_GET["depart"]]);    
+    $request->execute([$depart]);    
     $flights["success"] = true;
     $flights["message"] = "flights List from ".$_GET["depart"];
     
-    $result = $request->fetchAll(PDO::FETCH_ASSOC);
+    $result = $request->fetchAll(PDO::FETCH_OBJ);
     $flights["results"]["find_qty"] = count($result);
     $flights["results"]["flights"] = $result;
     echo json_encode($flights);
@@ -67,7 +72,7 @@ function flightsAll(){
     $flights["success"] = true;
     $flights["message"] = "list of all available flights";
     
-    $result = $request->fetchAll(PDO::FETCH_ASSOC);
+    $result = $request->fetchAll(PDO::FETCH_OBJ);
     $flights["results"]["find_qty"] = count($result);
     $flights["results"]["flights"] = $result;
     echo json_encode($flights);

@@ -3,20 +3,29 @@
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
-require 'Flight.php';
-    
-if (isset($_GET['arrival']) != "" && (isset($_GET['depart']) != ""))
+require_once 'Flight.php';
+
+// var_dump($_GET);
+
+if (isset($_GET) && count($_GET) > 0){
+    if (isset($_GET['arrival']) !== null && isset($_GET['depart']) !== null)
     {
-        flightListByDepartArrival();
-    }
-    else if (isset($_GET['arrival']) != "")
-    {
-        flightListByArrival();
-    }
-    else if (isset($_GET['depart']) != "")
-    {
-        flightListByDepart();
+        flightListByDepartArrival($_GET['depart'], $_GET['arrival']);
     }
 
-flightsAll();
+   else if (isset($_GET['arrival']) !== null)
+    {
+        flightListByArrival($_GET['arrival']);
+    }
+
+   else if (isset($_GET['depart']) !== null)
+    {
+        flightListByDepart($_GET['depart']);
+    }
+}
+else
+{
+    flightsAll();
+}
+
     
