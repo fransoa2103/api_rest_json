@@ -7,10 +7,9 @@ function connectDb(){
         // !isset($pdo)? $pdo = new PDO($_ENV['LOC_HOST'].$_ENV['LOC_NAME'].$_ENV['LOC_CHAR'],$_ENV['LOC_USER'],$_ENV['LOC_PW']): null ;
         if (!isset($pdo)){
             $pdo = new PDO($_ENV['DB_HOST'].$_ENV['DB_NAME'].$_ENV['DB_CHAR'],$_ENV['DB_USER'],$_ENV['DB_PW']);
+            $flights["success"] = true;
+            $flights["message"] = "connection done";
         }
-        
-        $flights["success"] = true;
-        $flights["message"] = "connection done";
         return($pdo);
 
     } catch (PDOException $e) {
@@ -26,10 +25,10 @@ function flightListByDepartArrival($depart, $arrival){
     $request = $pdo->prepare("SELECT * FROM flights WHERE depart = ? AND arrival = ? ");
 
     $request->execute([$depart,$arrival]);    
-    // $request->execute([$_GET["depart"],$_GET["arrival"]]);    
+    // $request->execute([$depart,$arrival]);    
 
     $flights["success"] = true;
-    $flights["message"] = "flights List from ".$_GET["depart"]." to ".$_GET["arrival"];
+    $flights["message"] = "flights List from ".$depart." to ".$arrival;
     
     $result = $request->fetchAll(PDO::FETCH_OBJ);
     $flights["results"]["find_qty"] = count($result);
@@ -40,10 +39,10 @@ function flightListByDepartArrival($depart, $arrival){
 function flightListByArrival($arrival){
     $pdo = connectDb();
     $request = $pdo->prepare("SELECT * FROM flights WHERE arrival = ? ");
-    // $request->execute([$_GET["arrival"]]);    
+    // $request->execute([$arrival]);    
     $request->execute([$arrival]);    
     $flights["success"] = true;
-    $flights["message"] = "flights List to ".$_GET["arrival"];
+    $flights["message"] = "flights List to ".$arrival;
     
     $result = $request->fetchAll(PDO::FETCH_OBJ);
     $flights["results"]["find_qty"] = count($result);
@@ -54,10 +53,10 @@ function flightListByArrival($arrival){
 function flightListByDepart($depart){
     $pdo = connectDb();
     $request = $pdo->prepare("SELECT * FROM flights WHERE depart = ? ");
-    // $request->execute([$_GET["depart"]]);    
+    // $request->execute([$depart]);    
     $request->execute([$depart]);    
     $flights["success"] = true;
-    $flights["message"] = "flights List from ".$_GET["depart"];
+    $flights["message"] = "flights List from ".$depart;
     
     $result = $request->fetchAll(PDO::FETCH_OBJ);
     $flights["results"]["find_qty"] = count($result);
